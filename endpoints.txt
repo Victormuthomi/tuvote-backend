@@ -1,0 +1,13 @@
+🗳️ Tuvote API Endpoints
+🔐 Authentication
+POST /auth/register – Register a user (admin/voter)
+POST /auth/login – Login and get a token
+📜 Elections
+POST /elections – Create an election (Admin)
+GET /elections – Get all elections
+👤 Candidates
+POST /candidates – Add a candidate (Admin)
+GET /candidates/:electionId – Get candidates for an election
+🗳️ Voting
+POST /vote – Cast a vote (Voter)
+
