@@ -6,6 +6,8 @@ import authRoutes from "./routes/authRoutes.js";
 import electionRoutes from "./routes/electionRoutes.js";
 import candidateRoutes from "./routes/candidateRoutes.js";
 import voteRoutes from "./routes/voteRoutes.js";
+import dashboardRoutes from "./routes/dashboardRoutes.js";
+import statsRoutes from "./routes/statsRoutes.js";
 
 dotenv.config();
 
@@ -17,7 +19,9 @@ app.use(cors());
 app.use("/api/auth", authRoutes);
 app.use("/api/elections", electionRoutes);
 app.use("/api/candidates", candidateRoutes);
-app.use("/api/vote", voteRoutes);
+app.use("/api/dashboard", dashboardRoutes);
+app.use("/api/stats", statsRoutes);
+app.use("/api/votes", voteRoutes);
 
 // Database Connection
 const connectDB = async () => {
