@@ -9,7 +9,7 @@ import voteRoutes from "./routes/voteRoutes.js";
 import dashboardRoutes from "./routes/dashboardRoutes.js";
 import statsRoutes from "./routes/statsRoutes.js";
 
-dotenv.config();
+// dotenv.config(); // You don't need dotenv if you're hardcoding the connection string
 
 const app = express();
 
@@ -26,7 +26,10 @@ app.use("/api/votes", voteRoutes);
 // Database Connection
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI, {
+    // Hardcoding the MongoDB URI directly here
+    const mongoURI =
+      "mongodb+srv://victor:Kibanga100.@clustervote.wavow.mongodb.net/votes?retryWrites=true&w=majority&appName=Clustervote";
+    await mongoose.connect(mongoURI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
