@@ -1,12 +1,13 @@
 import mongoose from "mongoose";
+import "./Candidate.js"; // Ensure the Candidate model is registered
 
-const electionSchema = new mongoose.Schema({
+const ElectionSchema = new mongoose.Schema({
   name: { type: String, required: true },
   description: String,
-  startDate: { type: Date, required: true },
-  endDate: { type: Date, required: true },
-  candidates: [{ type: mongoose.Schema.Types.ObjectId, ref: "Candidate" }],
+  startDate: Date,
+  endDate: Date,
+  candidates: [{ type: mongoose.Schema.Types.ObjectId, ref: "Candidate" }], // Reference Candidate model
 });
 
-const Election = mongoose.model("Election", electionSchema);
+const Election = mongoose.model("Election", ElectionSchema);
 export default Election;
