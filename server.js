@@ -13,13 +13,25 @@ import statsRoutes from "./routes/statsRoutes.js";
 const app = express();
 
 // Middleware
-const frontendURL = "https://tuvote-frontend.vercel.app";
+const allowedOrigins = [
+  "http://localhost:3000", // for local dev
+  "https://tuvote-frontend.vercel.app", // production frontend
+];
+
 app.use(
   cors({
-    origin: frontendURL,
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods: ["GET", "POST", "PUT", "DELETE"],
-  }),
+    credentials: true,
+  })
 );
+
 
 app.use(express.json());
 app.use("/api/auth", authRoutes);
