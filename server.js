@@ -1,7 +1,8 @@
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
-// import dotenv from "dotenv"; // Commented out as it's not necessary if you hardcode the Mongo URI
+import config from "./config/config.js"; // import the config
+
 import authRoutes from "./routes/authRoutes.js";
 import electionRoutes from "./routes/electionRoutes.js";
 import candidateRoutes from "./routes/candidateRoutes.js";
@@ -12,11 +13,11 @@ import statsRoutes from "./routes/statsRoutes.js";
 const app = express();
 
 // Middleware
-const frontendURL = "https://tuvote-frontend.vercel.app"; // Add your frontend URL here
+const frontendURL = "https://tuvote-frontend.vercel.app";
 app.use(
   cors({
-    origin: frontendURL, // Allow the Vercel frontend to communicate with the backend
-    methods: ["GET", "POST", "PUT", "DELETE"], // You can adjust methods as needed
+    origin: frontendURL,
+    methods: ["GET", "POST", "PUT", "DELETE"],
   }),
 );
 
@@ -28,13 +29,10 @@ app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/stats", statsRoutes);
 app.use("/api/votes", voteRoutes);
 
-// Database Connection
+// Connect DB
 const connectDB = async () => {
   try {
-    // Hardcoded MongoDB URI
-    const mongoURI =
-      "mongodb+srv://victor:Kibanga100.@clustervote.wavow.mongodb.net/votes?retryWrites=true&w=majority&appName=Clustervote";
-    await mongoose.connect(mongoURI, {
+    await mongoose.connect(config.mongoURI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -50,6 +48,5 @@ app.get("/", (req, res) => {
   res.send("Tuvote API is running...");
 });
 
-// Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
